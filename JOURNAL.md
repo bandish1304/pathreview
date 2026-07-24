@@ -17,16 +17,16 @@ Setup confirmation: [x] App runs locally at localhost:5173
 
 Cohort ledger: [x] Issue added to cohort ledger
 
-## Week 8 - Local reproduction
+## Week 8 - Reproduction and solution planning
 
-What I tested:
-I ran the app locally, logged in with a seeded test account, created one profile with the same GitHub username, portfolio URL, and resume, and then submitted two review requests for that exact same profile.
+Reproduction commit link: https://github.com/bandish1304/pathreview/commit/f59cb1db2c1b36e2d1c2a2c855ec19f74cce4f9c
 
-What I expected:
-If caching were already in place, the second request should have reused the first completed review because nothing about the profile changed.
+Reproduction summary:
+I reproduced the issue by creating one profile locally and submitting two review requests against that same unchanged profile. The app created two separate review records and processed both of them, which confirmed that repeated identical requests are not using any cached result yet.
 
-What actually happened:
-The app created two different review records for the same unchanged profile, and both of them finished processing. That shows the current review flow does not check for an existing cached result before creating and processing a new review.
+PLAN.md link: https://github.com/bandish1304/pathreview/blob/issue/32-initial-setup/PLAN.md
 
-Where the issue appears to live:
-The main gap is in the review creation and processing flow in core/services/review_service.py. Right now the service always creates a new review and runs the processing path again, and there is no content-hash lookup to short-circuit duplicate requests.
+Walkthrough video (recommended):
+
+Blockers or open questions:
+I still need to decide the cleanest place to store the review input hash so the app can detect true cache hits before it creates a new pending review. I also want to keep the cache check narrow enough that a real profile change still triggers a fresh review.
