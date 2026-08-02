@@ -9,6 +9,7 @@ import pytest
 from fastapi import HTTPException
 
 from core.services.review_service import (
+    _build_review_content_hash,
     create_review,
     get_review,
     list_reviews,
@@ -388,6 +389,19 @@ class TestReviewService:
         mock_db_session.add.assert_not_called()
         mock_db_session.commit.assert_not_called()
         mock_db_session.refresh.assert_not_called()
+
+    def test_review_content_hash_changes_when_profile_content_changes(self):
+        """Test the cache fingerprint changes when review-relevant profile content changes."""
+        original_profile = _build_mock_profile()
+        updated_profile = _build_mock_profile()
+        updated_profile.github_username = original_profile.github_username
+        updated_profile.portfolio_url = original_profile.portfolio_url
+        updated_profile.resume_text = "Updated resume text"
+
+        original_hash = _build_review_content_hash(original_profile)
+        updated_hash = _build_review_content_hash(updated_profile)
+
+        assert original_hash != updated_hash
 
     @pytest.mark.asyncio
     async def test_create_review_raises_not_found_for_wrong_owner(self, mock_db_session):
