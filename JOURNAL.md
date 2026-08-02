@@ -48,7 +48,7 @@ The main slowdown right now is that the repo still has pre-existing failures in 
 
 ### Check-in 2 (end of week)
 
-PR link: pending
+PR link: https://github.com/ascherj/pathreview/pull/560
 
 Branch: issue/32-initial-setup
 
