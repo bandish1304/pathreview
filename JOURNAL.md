@@ -48,9 +48,9 @@ The main slowdown right now is that the repo still has pre-existing failures in 
 
 ### Check-in 2 (end of week)
 
-PR link: https://github.com/ascherj/pathreview/pull/560
+PR link: https://github.com/ascherj/pathreview/pull/561
 
-Branch: issue/32-initial-setup
+Branch: feat/32-review-cache
 
 What you built:
 I added a review-level cache check so repeated requests for the same unchanged profile can return an existing completed review instead of creating and processing a duplicate one. The fix works by generating a deterministic content hash from the profile inputs, saving that hash on the review, and checking for a matching completed review before starting a new background job.
