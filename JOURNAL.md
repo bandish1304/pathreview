@@ -61,3 +61,41 @@ I updated tests/unit/test_review_service.py. The tests now cover the normal revi
 Self-review confirmation: [x] make check passes  [x] make test-unit passes
 
 Draft PR feedback received from: none
+
+## Week 10 - Feedback check and closeout
+
+PR checked for reviewer feedback: https://github.com/ascherj/pathreview/pull/561
+
+Status:
+As of this check, there are no reviewer or maintainer comments on the PR. No response actions were needed.
+
+What I documented:
+I confirmed that no feedback has arrived yet and recorded that here so the Week 10 feedback-check requirement is complete.
+
+## Week 10 - Reflection
+
+### What I learned across this contribution cycle
+
+The biggest shift for me was learning to treat open source work as a process, not just a coding task. In Week 7 and Week 8, I saw how much clarity comes from writing down the issue in my own words, reproducing it directly, and building a concrete plan before touching implementation. That up-front structure made Week 9 much more manageable when the work became technical and messy.
+
+I also learned the difference between fixing behavior locally and preparing a PR that is easy for maintainers to review. My first PR was technically correct but too noisy because it included unrelated files. Rebuilding it on a clean branch taught me to keep scope tight and to control what enters a review.
+
+### Most valuable technical takeaway
+
+For this issue, the key idea was placing cache logic at the right point in the flow. Instead of deduplicating too late, I added a review-level content hash check before creating a new review job. That reinforced a design lesson I want to keep using: make the fast-path decision as early as possible, and only pay expensive processing costs on true cache misses.
+
+### Testing and quality takeaway
+
+I got better at separating issue-specific validation from repo-wide noise. The codebase had pre-existing failures in broader checks, so I focused on proving that my touched files were covered by targeted tests and did not introduce new failures. Writing and updating tests around cache hit, cache miss, and changed-input behavior made the fix much more defensible than implementation-only changes.
+
+### How I used tools and support
+
+AI tooling helped me move faster in exploration and refactoring, but I still had to verify every result against project conventions and actual runtime behavior. The combination that worked best was: reproduce first, narrow file scope, add tests early, then iterate with small commits. That pattern gave me better control when Git history, branch divergence, and PR scope became complicated.
+
+### What I would do differently next time
+
+Next time I would open a clean implementation branch earlier and keep coursework documentation commits separate from upstream contribution commits from day one. That would reduce last-minute PR cleanup and make review simpler for maintainers. I would also keep a short running checklist of branch hygiene tasks so I can catch scope drift before opening the PR.
+
+### Closing reflection
+
+This module made me more confident in end-to-end contribution work: scoping an issue, reproducing behavior, implementing a targeted fix, validating with tests, and shipping a reviewable PR. The main outcome for me is not just the merged code path, but a repeatable workflow I can carry into future team and open source projects.
