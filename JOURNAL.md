@@ -62,40 +62,32 @@ Self-review confirmation: [x] make check passes  [x] make test-unit passes
 
 Draft PR feedback received from: none
 
-## Week 10 - Feedback check and closeout
+## Week 10 - Iteration & reflection
 
-PR checked for reviewer feedback: https://github.com/ascherj/pathreview/pull/561
+### Reviewer feedback
 
-Status:
-As of this check, there are no reviewer or maintainer comments on the PR. No response actions were needed.
+Feedback received: [ ] Yes  [x] No - still awaiting review
 
-What I documented:
-I confirmed that no feedback has arrived yet and recorded that here so the Week 10 feedback-check requirement is complete.
+Summary of feedback:
+As of this Week 10 check, no reviewer or maintainer comments have been posted on PR #561.
 
-## Week 10 - Reflection
+How you responded:
 
-### What I learned across this contribution cycle
+---
 
-The biggest shift for me was learning to treat open source work as a process, not just a coding task. In Week 7 and Week 8, I saw how much clarity comes from writing down the issue in my own words, reproducing it directly, and building a concrete plan before touching implementation. That up-front structure made Week 9 much more manageable when the work became technical and messy.
+### Reflection
 
-I also learned the difference between fixing behavior locally and preparing a PR that is easy for maintainers to review. My first PR was technically correct but too noisy because it included unrelated files. Rebuilding it on a clean branch taught me to keep scope tight and to control what enters a review.
+What was harder than you expected?
+The hardest part was not writing the cache logic itself. The harder part was managing scope and branch hygiene while working in a moving codebase. I opened a first PR that technically worked but included too many unrelated files, then had to rebuild the PR from a clean branch. That took more time than the coding portion and showed me that process mistakes can create just as much friction as code bugs.
 
-### Most valuable technical takeaway
+What did you learn about working in a large codebase?
+I learned that in a larger shared repo, local correctness is only one piece of the job. You also need to understand ownership boundaries, pre-existing failures, and what reviewers actually need to see in a clean diff. In my own projects I can fix whatever I want in one pass, but in someone else's codebase I have to stay tightly scoped, preserve existing behavior, and explain tradeoffs clearly.
 
-For this issue, the key idea was placing cache logic at the right point in the flow. Instead of deduplicating too late, I added a review-level content hash check before creating a new review job. That reinforced a design lesson I want to keep using: make the fast-path decision as early as possible, and only pay expensive processing costs on true cache misses.
+How did AI tools help - and where did they fall short?
+AI tools helped most with fast codebase exploration, drafting targeted edits, and iterating on tests quickly. They were especially useful when tracing service flow and generating first-pass test cases. Where they fell short was judgment: AI could suggest valid code that still created PR noise, and it could not automatically decide what was the right contribution scope for maintainers. I still had to verify everything with tests, logs, and manual review.
 
-### Testing and quality takeaway
+What would you do differently if you started over?
+I would start from a clean implementation branch off upstream main immediately and keep coursework journal commits separate from upstream contribution commits. I would also set a stricter check before opening a PR: verify changed file list first, then open. That one habit would have prevented the oversized first PR and reduced cleanup time.
 
-I got better at separating issue-specific validation from repo-wide noise. The codebase had pre-existing failures in broader checks, so I focused on proving that my touched files were covered by targeted tests and did not introduce new failures. Writing and updating tests around cache hit, cache miss, and changed-input behavior made the fix much more defensible than implementation-only changes.
-
-### How I used tools and support
-
-AI tooling helped me move faster in exploration and refactoring, but I still had to verify every result against project conventions and actual runtime behavior. The combination that worked best was: reproduce first, narrow file scope, add tests early, then iterate with small commits. That pattern gave me better control when Git history, branch divergence, and PR scope became complicated.
-
-### What I would do differently next time
-
-Next time I would open a clean implementation branch earlier and keep coursework documentation commits separate from upstream contribution commits from day one. That would reduce last-minute PR cleanup and make review simpler for maintainers. I would also keep a short running checklist of branch hygiene tasks so I can catch scope drift before opening the PR.
-
-### Closing reflection
-
-This module made me more confident in end-to-end contribution work: scoping an issue, reproducing behavior, implementing a targeted fix, validating with tests, and shipping a reviewable PR. The main outcome for me is not just the merged code path, but a repeatable workflow I can carry into future team and open source projects.
+What are you most proud of from this module?
+I am most proud that I completed the full contribution cycle end to end: issue selection, reproduction, planning, implementation, targeted tests, and shipping a cleaner replacement PR after course-correcting process mistakes.
